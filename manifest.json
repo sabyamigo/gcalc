@@ -1,0 +1,33 @@
+{
+  "theme_color": "#423c23",
+  "background_color": "#ecd785",
+  "icons": [
+    {
+      
+      "sizes": "192x192",
+      "src": "app-icon192.png",
+      "type": "image/png"
+    },
+    {
+      
+      "sizes": "512x512",
+      "src": "app-icon512.png",
+      "type": "image/png"
+    }
+    ,
+    {
+      
+      "sizes": "512x512",
+      "src": "icon512_rounded.png",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait",
+  "display": "standalone",
+  "dir": "auto",
+  "lang": "en-US",
+  "name": "24k to 22k Rate Conversion by Sabyasachi",
+  "short_name": "Gold Rate Converter",
+  "description": "A simple web application to convert 24k gold rate to 22k gold rate.",
+  "start_url":"."
+}

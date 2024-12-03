@@ -1,0 +1,181 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>This is me | Gold Rate Conversion </title>
+<meta name="description" content="">
+<link rel="icon" href="favicon.ico" sizes="any">
+<meta name="theme-color" content="#423c23">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="app-icon192.png">
+<style type="text/css">
+	* { margin: 0; padding: 0; box-sizing: border-box;}
+	html,body { height: 100%; font-family: "Poppins", sans-serif; font-weight: 400;}      
+	body { display: flex; justify-content: center; align-items: center; background-color: #f4f4f9; height: 100vh; padding: 20px; flex-wrap: wrap; font-size: 16px;}
+	.container {display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;}
+	.signin-box { max-width: 600px; width: 100%;}
+	.signin-box-inner { background-color: white; padding: 15px 30px 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);}
+	h2 { margin-bottom: 20px; font-weight: 600; font-size: 1.5rem}
+	.signin-box-inner h2 { font-weight: 500; font-size: 1.25rem;}
+	.inp-data{ display: flex; column-gap: 15px;}
+	.inp-in input[type="number"]{width: 100%;}
+	.inner {display: flex; flex-direction: column;}
+	label { margin-bottom: 5px; font-weight: 500;}
+	input[type="number"],input[type="password"] { padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; outline: none; font-family: "Poppins", sans-serif; font-size: 15px; color: #3e3e3e;}
+	.result { font-size: 18px; margin-bottom: 10px;}
+	.result.error{ color: #f00; font-weight: 500;}
+	button { padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.3s ease 0s;}
+	button:hover { background-color: #45a049;}
+	.footer {text-align: center; background-color: #f4f4f9; padding: 10px 0; font-size: 14px; color: #888; width: 100%; position: absolute; bottom: 0; }
+	footer p { margin: 0;}
+	@media only screen and (max-width: 560px) {		
+		h2 {font-size: 1.2rem }
+		.signin-box-inner h2 {font-size: 1.1rem;}
+	}
+	@media only screen and (max-width: 480px) {      	
+		.inp-data{display: block;}
+	}
+	@media only screen and (max-height: 500px) {
+		body{ padding-bottom:0; height: auto; overflow: auto;}
+		.footer{ position: relative; margin-top: 10px;}
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+	  <div class="signin-box">
+	    <h2>24k to 22k Rate Conversion by Sabyasachi</h2>
+	    <div class="signin-box-inner">
+	      <h2>Get NewsPaper like 22k Rate</h2>
+	      <div class="inner">
+	      	<div class="inp-data">
+	      		<div class="inp-in">
+	          		<label for="24k_nws">Enter Paper 24k Rate</label>
+	          		<input type="number" id="24k_nws" placeholder="Enter value" required>
+	          	</div>
+	          	<div class="inp-in">	
+	          		<label for="22k_nws">Enter Paper 22k Rate</label>
+	          		<input type="number" id="22k_nws" placeholder="Enter value" required>
+	      		</div>
+	      	</div>
+	        <label for="24k_rate">Local 24k Gold Rate:</label>
+	        <input type="number" id="24k_rate" placeholder="Enter 24k gold rate" required>
+	        <p class="result" id="result">Result</p>
+	        <button id="calculate">Calculate 22k Rate</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<footer class="footer">
+	  <p>&copy; Durga Jewellers | All Rights Reserved</p>
+	</footer>
+	<script type="text/javascript">
+		window.addEventListener('load', () => {
+			registerSW();
+		});	
+
+		// Register the Service Worker
+        async function registerSW() {
+          if ('serviceWorker' in navigator) {
+            try {
+              await navigator
+                    .serviceWorker
+                    .register('serviceworker.js');
+            }
+            catch (e) {
+              console.log('SW registration failed');
+            }
+          }
+        }
+
+		/*function calc22kRate(){
+			var rate24 = document.getElementById("24k_nws").value;
+			var rate22 = document.getElementById("22k_nws").value;
+			var multiplier = (rate22 / rate24);
+			var rate = document.getElementById("24k_rate").value;			
+			var result = Math.ceil(rate * multiplier);
+			//console.log(result);
+			document.getElementById("result").innerHTML = "22k Gold Rate: " + result;
+			
+		}*/
+
+
+		function calc22kRate() {
+			// Get the values from the input fields
+			var rate24 = document.getElementById("24k_nws").value;
+			var rate22 = document.getElementById("22k_nws").value;
+			var rate = document.getElementById("24k_rate").value;
+
+			// Get the result element
+			var resultElement = document.getElementById("result");
+
+			// Start with an empty message
+			var errorMessage = "";
+
+			// Reset the class of result element to ensure no leftover styling from previous runs
+			resultElement.classList.remove("error"); // Remove error class if previously added
+
+			
+			if (rate24 == '' && rate22 == '' && rate == '') {
+				errorMessage = "Please fill in all the fields.";
+			}
+			else if (rate24 != '' && rate22 != '' && rate == '') {
+				errorMessage = "Please fill the local 24k rate.";
+			}
+			else if (rate24 != '' && rate != '' && rate22 == '') {
+				errorMessage = "Please fill the 22k rate.";
+			}
+			else if (rate22 != '' && rate != '' && rate24 == '') {
+				errorMessage = "Please fill the 24k rate.";
+			}
+			else if (rate24 != '' && rate22 == '' && rate == '') {
+				errorMessage = "Please fill the 22k rate and local 24k rate.";
+			}
+			else if (rate24 == '' && rate22 != '' && rate == '') {
+				errorMessage = "Please fill the 24k rate and local 24k rate.";
+			}
+			else if (rate24 == '' && rate22 == '' && rate != '') {
+				errorMessage = "Please fill the 24k rate and 22k rate.";
+			}
+			else if (rate24 != '' && rate22 != '' && rate != '') {
+				var multiplier = (rate22 / rate24);
+				var result = Math.ceil(rate * multiplier);
+				errorMessage = "22k Gold Rate is: " + result;
+			}
+
+			// If there's an error message, add the 'error' class, otherwise remove it
+			if (errorMessage.includes("Please")) {
+				resultElement.classList.add("error");  // Add error class for styling
+			} else {
+				resultElement.classList.remove("error");  // Remove error class if everything is okay
+			}
+			// Show the appropriate message in one line
+			resultElement.innerHTML = errorMessage;
+		}
+
+		document.getElementById("calculate").addEventListener("click", calc22kRate);
+			document.getElementById("24k_nws").addEventListener("keydown", function(event) {
+				if (event.key === "Enter") {
+					event.preventDefault();
+					calc22kRate();
+				}
+			});
+			document.getElementById("22k_nws").addEventListener("keydown", function(event) {
+				if (event.key === "Enter") {
+					event.preventDefault();
+					calc22kRate();
+				}
+			});
+			document.getElementById("24k_rate").addEventListener("keydown", function(event) {
+				if (event.key === "Enter") {
+					event.preventDefault();
+					calc22kRate();
+				}
+			});
+	</script>
+</body>
+</html>
